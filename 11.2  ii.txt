@@ -1,0 +1,10 @@
+1)CREATE TABLE IF NOT EXISTS partition_real_estate(city string,baths int,sq_ft int,price bigint,type string)
+    PARTITIONED BY (beds int)
+    ROW FORMAT DELIMITED
+    FIELDS TERMINATED BY ','
+    STORED AS TEXTFILE;
+    
+
+2)INSERT OVERWRITE TABLE partition_real_estate PARTITION(beds) SELECT city,baths,sq_ft,price,type,beds FROM real_estate where beds>2;
+
+3)SELECT * FROM partition_real_estate;
